@@ -79,5 +79,8 @@ public class ShannonFano {
 		return codigo;
 	}
 	
+	public HashMap<String,Codigo> getHashMap(){
+		return this.codigos;
+	}
 
 }

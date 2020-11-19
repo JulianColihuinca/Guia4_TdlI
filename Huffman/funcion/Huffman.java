@@ -1,6 +1,7 @@
 package funcion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import arbol.Arbol;
 import cod.Codigo;
@@ -87,7 +88,13 @@ public class Huffman {
 		return 100-rendimiento();
 	}
 	
-	
+	public HashMap<String,Codigo> getHashMap(){
+		HashMap<String,Codigo> hash= new HashMap<String,Codigo>();
+		for (int i=0;i<this.codigos.size();i++) {
+			hash.put(this.codigos.get(i).getSimbolo(), this.codigos.get(i));
+		}
+		return hash;
+	}
 		
 	
 	

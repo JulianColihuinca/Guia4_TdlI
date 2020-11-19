@@ -3,8 +3,10 @@ package formatos;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import cod.Codigo;
 import fuente.Fuente;
 import funcion.Huffman;
 import funcion.ShannonFano;
@@ -12,6 +14,7 @@ import ordenador.Ordenador;
 
 public class Formato {
 	
+	private static  HashMap<String,Codigo> hashmap;
 	public static void porArchivo(String direccion) {
 		Fuente f= new Fuente(direccion,true);
 		f.muestra();
@@ -48,6 +51,8 @@ public class Formato {
 			Ordenador.ordenaDecreciente2(simbolos, probabilidades);
 			Huffman hufmman= new Huffman(simbolos,probabilidades);
 			System.out.println(hufmman.getResumen());
+			hashmap= hufmman.getHashMap();
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("No se encontro el archivo: " + direccion);
 		}
@@ -80,6 +85,7 @@ public class Formato {
 			Ordenador.ordenaDecreciente2(simbolos, probabilidades);
 			Huffman hufmman= new Huffman(simbolos,probabilidades);
 			System.out.println(hufmman.getResumen());
+			hashmap=hufmman.getHashMap();
 		} catch (FileNotFoundException e) {
 			System.out.println("No se encontro el archivo: " + direccion);
 		}
@@ -100,9 +106,14 @@ public class Formato {
 			Ordenador.ordenaDecreciente2(simbolos, probabilidades);
 			ShannonFano sf= new ShannonFano(simbolos,probabilidades);
 			System.out.println(sf.getResumen());
+			hashmap=sf.getHashMap();
 		} catch (FileNotFoundException e) {
 			System.out.println("No se encontro el archivo: " + direccion);
 		}
+	}
+	
+	public static HashMap<String,Codigo> getHashMapCodigo() {
+		return hashmap;
 	}
 
 }
