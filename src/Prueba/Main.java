@@ -8,6 +8,7 @@ import cod.Codigo;
 import excepciones.SimboloNoEncontrado;
 import formatos.Formato;
 import funcion.Compresion;
+import funcion.Descompresion;
 import funcion.Huffman;
 import ordenador.Ordenador;
 
@@ -24,7 +25,9 @@ public class Main {
 		String mensaje= teclado.nextLine();
 		Compresion compresion=new Compresion(codigos);
 		try {
-			System.out.println("\n\nEl mensaje comprimido es:\n " + compresion.comprimir(mensaje));
+			System.out.println("\n\nEl mensaje codificado es:\n " + compresion.comprimir(mensaje));
+			System.out.println("\n\nEl mensaje comprimido por RLC es:\n " + compresion.getComprimidoRLC());
+			System.out.println("\n\nMensaje RLC descomprimido:\n " + Descompresion.descomprimirRLC(compresion.getComprimidoRLC()) );
 		} catch (SimboloNoEncontrado e) {
 			System.out.println(e.getMessage());
 		}

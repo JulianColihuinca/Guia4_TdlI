@@ -6,10 +6,12 @@ import java.util.HashMap;
 
 import cod.Codigo;
 import excepciones.SimboloNoEncontrado;
+import rlc.RLC;
 
 public class Compresion {
 	
 	private HashMap<String,Codigo> codigos;
+	private String comprimidoRLC;
 
 	
 	
@@ -38,7 +40,12 @@ public class Compresion {
 			}
 			compresion+= cod.getCodigo();
 		}
+		this.comprimidoRLC= RLC.getComprimido(mensaje);
 		return compresion;
+	}
+	
+	public String getComprimidoRLC() {
+		return this.comprimidoRLC;
 	}
 	
 
