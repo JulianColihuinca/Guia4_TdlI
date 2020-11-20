@@ -1,5 +1,10 @@
 package funcion;
 
+import java.util.HashMap;
+
+import cod.Codigo;
+import maximo.Operaciones;
+
 public class Descompresion {
 	
 	public static String descomprimirRLC(String comprimido) {
@@ -31,5 +36,41 @@ public class Descompresion {
 		}
 		return mensaje;
 	}
+	
+	
+	public static String descomprimir(String mensaje, HashMap<String,Codigo> codigos) {
+		String mensajeFinal="";
+		int minimo= Operaciones.getMinimaLongitud(codigos);
+		int maximo=Operaciones.getMaximaLongitud(codigos);
+		int i=0;
+		String codigoActual;
+		while(i<mensaje.length()) {
+			codigoActual="";
+			for (int j=0;i<mensaje.length() && j<minimo;j++) {
+				codigoActual+=Character.toString(mensaje.charAt(i));
+				i++;
+			}
+			boolean encontrada=false;
+			for (int j=0;i<=mensaje.length() && j<maximo-minimo && !encontrada;j++) {
+				String esta= Operaciones.contiene(codigoActual, codigos);
+				if (!esta.equalsIgnoreCase("")) {
+					encontrada=true;
+					if (!esta.equalsIgnoreCase("espacio"))
+						mensajeFinal+= esta;
+					else 
+						 mensajeFinal+=" ";
+				}
+				else {
+				codigoActual+=Character.toString(mensaje.charAt(i));
+				i++;
+				}
+				
+			}
+			
+		}
+		return mensajeFinal;
+	}
+	
+	
 
 }

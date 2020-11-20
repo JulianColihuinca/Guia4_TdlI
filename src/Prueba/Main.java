@@ -28,6 +28,7 @@ public class Main {
 			System.out.println("\n\nEl mensaje codificado es:\n " + compresion.comprimir(mensaje));
 			System.out.println("\n\nEl mensaje comprimido por RLC es:\n " + compresion.getComprimidoRLC());
 			System.out.println("\n\nMensaje RLC descomprimido:\n " + Descompresion.descomprimirRLC(compresion.getComprimidoRLC()) );
+			System.out.println("\n\nMensaje descomprimido:\n " + Descompresion.descomprimir(compresion.comprimir(mensaje), Formato.getHashMapCodigo()) );
 		} catch (SimboloNoEncontrado e) {
 			System.out.println(e.getMessage());
 		}
