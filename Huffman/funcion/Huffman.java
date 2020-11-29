@@ -2,10 +2,12 @@ package funcion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 import arbol.Arbol;
 import cod.Codigo;
 import monticulo.Monticulo;
+import ordenador.Ordenador;
 
 public class Huffman {
 	private ArrayList<String> simbolos;
@@ -23,27 +25,32 @@ public class Huffman {
 	}
 	
 	private void execute() {
-		Monticulo colaPrioridad= new Monticulo();
+		//Monticulo colaPrioridad= new Monticulo();
+		PriorityQueue<Arbol> colaPrioridad= new PriorityQueue<Arbol>();
 		double fz;
 		Arbol x,y,z;
 		for (int i=0;i<this.probabilidades.size();i++) {
-			colaPrioridad.agregar(new Arbol(this.probabilidades.get(i),this.simbolos.get(i)));
+			colaPrioridad.add(new Arbol(this.probabilidades.get(i),this.simbolos.get(i)));
 		}
 		
 		for (int i=1;i<this.probabilidades.size();i++) {
-			x= colaPrioridad.sacarPrimero();
-			y= colaPrioridad.sacarPrimero();
+			x= colaPrioridad.element();
+			colaPrioridad.remove();
+			y= colaPrioridad.element();
+			colaPrioridad.remove();
 			fz= x.getRaiz() + y.getRaiz();
 			z= new Arbol(fz,x,y);
-			colaPrioridad.agregar(z);
+			colaPrioridad.add(z);
 		}
 		
-		z= colaPrioridad.sacarPrimero();
+		z= colaPrioridad.element();
 		this.huffmanArbol=z;
 	}
 
 	public String getResumen() {
 		this.executeCodigo(huffmanArbol, "");
+		Ordenador.ordenaDecrecienteCodigo(codigos);
+		codigo+="Simbolo Ascii    Probabilidad    Codigo\n"; 
 		for (int i=0;i<this.codigos.size();i++)
 			  codigo += this.codigos.get(i) + "\n";
 		codigo+= String.format("\nEntropia= %.3f binits , Longitud Media= %.3f binits \n", this.entropia(),this.longMedia());

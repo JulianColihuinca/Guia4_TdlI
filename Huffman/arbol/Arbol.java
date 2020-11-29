@@ -1,6 +1,6 @@
 package arbol;
 
-public class Arbol {
+public class Arbol implements Comparable<Arbol> {
 	
 	private double raiz;
 	private String simbolo;
@@ -44,6 +44,16 @@ public class Arbol {
 
 	public Arbol getDer() {
 		return der;
+	}
+
+	@Override
+	public int compareTo(Arbol arg0) {
+		int res;
+		if (this.getRaiz()>=arg0.getRaiz())
+			res=1;
+		else 
+			res=-1;
+		return res;
 	}
 	
 	

@@ -58,6 +58,8 @@ public class Formato {
 		}
 	}
 	
+	
+	
 	public static void huffmanArchivo2(String direccion) {
 		ArrayList<String> simbolos;
 		ArrayList<Double> probabilidades;
@@ -90,6 +92,90 @@ public class Formato {
 			System.out.println("No se encontro el archivo: " + direccion);
 		}
 	}
+	
+	public static void huffmanArchivo3(String direccion) {
+		ArrayList<String> simbolos;
+		ArrayList<Double> probabilidades;
+		try {
+			Scanner arch= new Scanner(new File(direccion));
+			simbolos= new ArrayList<String>();
+			probabilidades= new ArrayList<Double>();
+			int cant=0;
+			while (arch.hasNextLine()) {
+				String linea=arch.nextLine();
+				for (int i=0;i<linea.length();i++) {
+					String simbolo;
+					if (linea.charAt(i)==' ')
+						simbolo="espacio";
+					else if (linea.charAt(i)==10)
+						simbolo="enter";
+					else
+						simbolo=Character.toString(linea.charAt(i));
+						
+					if  (linea.charAt(i)!=8203) { // No tiene que ser fin de archivo
+							if (simbolos.contains(simbolo)) {
+								int index=simbolos.indexOf(simbolo);
+								probabilidades.set(index, probabilidades.get(index)+1);
+							}
+							else {
+								simbolos.add(simbolo);
+								probabilidades.add(1.0);
+								int index=simbolos.indexOf(simbolo);
+								probabilidades.set(index, 1.0);
+							}
+							cant++;
+					}
+				}
+			}
+			arch.close();
+			for (int i=0;i<probabilidades.size() ;i++) {
+				probabilidades.set(i, probabilidades.get(i)/cant );
+			}
+			Ordenador.ordenaDecreciente2(simbolos, probabilidades);
+			Huffman hufmman= new Huffman(simbolos,probabilidades);
+			System.out.println(hufmman.getResumen());
+			hashmap=hufmman.getHashMap();
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo: " + direccion);
+		}
+	}
+	
+	public static void HuffmanTexto(String linea) {
+		ArrayList<String> simbolos = new ArrayList<String>();
+		ArrayList<Double> probabilidades= new ArrayList<Double>();
+		int cant=0;
+		for (int i=0;i<linea.length();i++) {
+			String simbolo;
+			if (linea.charAt(i)==' ')
+				simbolo="espacio";
+			else if (linea.charAt(i)==10)
+				simbolo="enter";
+			else
+				simbolo=Character.toString(linea.charAt(i));
+				
+			if  (linea.charAt(i)!=8203) { // No tiene que ser fin de archivo
+					if (simbolos.contains(simbolo)) {
+						int index=simbolos.indexOf(simbolo);
+						probabilidades.set(index, probabilidades.get(index)+1);
+					}
+					else {
+						simbolos.add(simbolo);
+						probabilidades.add(1.0);
+						int index=simbolos.indexOf(simbolo);
+						probabilidades.set(index, 1.0);
+					}
+					cant++;
+			}
+		}
+		for (int i=0;i<probabilidades.size() ;i++) {
+			probabilidades.set(i, probabilidades.get(i)/cant );
+		}
+		Ordenador.ordenaDecreciente2(simbolos, probabilidades);
+		Huffman hufmman= new Huffman(simbolos,probabilidades);
+		System.out.println(hufmman.getResumen());
+		hashmap=hufmman.getHashMap();
+	}
+	
 	
 	public static void shannonFanoArchivo(String direccion) {
 		ArrayList<String> simbolos;

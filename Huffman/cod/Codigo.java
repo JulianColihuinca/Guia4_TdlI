@@ -32,7 +32,12 @@ public class Codigo {
 
 	@Override
 	public String toString() {
-		return simbolo + " " + probabilidad + " " + codigo;
+		int ascii;
+		if (this.simbolo.equalsIgnoreCase("espacio"))
+			ascii= ' ';
+		else
+			ascii= simbolo.charAt(0);
+		return String.format("%s       %3d       %.6f       %s", simbolo,ascii,probabilidad,codigo);
 	}
 
 
